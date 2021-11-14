@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="icon" href="{% static 'images/favicon.ico' %}">
+<title>ELK BLOG | ALL IN ONE</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i" rel="stylesheet">
+<link href="{% static 'css/theme.css' %} " rel="stylesheet">
+<!-- Begin tracking codes here, including ShareThis/Analytics -->
+    
+<!-- End tracking codes here, including ShareThis/Analytics -->
+</head>
+<body class="layout-default">
+<!-- Begin Menu Navigation
+================================================== -->
+<header class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
+<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsWow" aria-controls="navbarsWow" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="container">
+	<!-- Begin Logo -->
+	<a class="navbar-brand" href="{% url 'index' %}">
+	<img src="{% static 'images/logo.png' %}" alt="">
+	</a>
+	<!-- End Logo -->
+	<!-- Begin Menu -->
+	<div class="collapse navbar-collapse" id="navbarsWow">
+		<!-- Begin Menu -->
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+			<a class="nav-link" href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Post</a>
+			<div class="dropdown-menu" aria-labelledby="dropdown01">
+				<a class="dropdown-item" href="#">Left Sidebar</a>
+			</div>
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" href="{% url 'contact' %}">Contact</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'login' %}">Login</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'Signup' %}">Signup</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+			</li>
+			<li class="nav-item">
+			<a target="_blank" class="nav-link highlight" href="#">Download</a>
+			</li>
+		</ul>
+		<!-- End Menu -->
+	</div>
+</div>
+</header>
+<!-- End Menu Navigation
+================================================== -->
+<div class="site-content">
+	<!-- Home Jumbotron
+    ================================================== -->
+	<section class="intro">
+	<div class="wrapintro">
+		<h1>ELK | BLOG</h1>
+		<h2 class="lead">All in one blog</h2>
+		<a target="_blank" href="#" class="btn">Download</a>
+	</div>
+	</section>
+	<!-- Container
+    ================================================== -->
+	<div class="container">
+		<div class="main-content">
+			<!---- For search------------>
+			<div class="widget search">
+				<header>
+					<h3 class="h6">Search the blog</h3>
+				</header>
+				<form action="{% url 'search' %}" class="search-form">
+					<div class="form-group">
+					<input type="text" name="search" placeholder="What are you looking for?">
+					<button type="submit" class="submit">submit</button>
+					</div>
+				</form>
+				</div>
+		
+			<!-- Posts Index
+        ================================================== -->
+			<section class="recent-posts row">
+			<div class="col-sm-4">
+				<div class="sidebar">
+					<div class="sidebar-section">
+						<h5><span>Latest Posts</span></h5>
+						{% for post in late %}
+						<a href="{% url 'single' post.slug %}">
+						<div class="item d-flex align-items-center">
+						<div style="position: relative; padding: 1.5rem; width: 50%;
+						height: auto;">
+						 <div class="image"><img src="{{ post.thumbnail.url }}"></div>
+						</div>
+						<div class="title"><strong>{{ post.title }}</strong>
+							<div class="d-flex align-items-center">
+							</div>
+						</div>
+						</div>
+					</a>
+        			{% endfor %}
+					</div>
+				</div>
+			</div>
+	<!-- Posts 
+        ================================================== -->
+			<div class="col-sm-8">
+				<div class="section-title">
+					<h2><span>All Stories</span></h2>
+				</div>
+				<div class="masonrygrid row listrecent">
+					<!-- begin post -->
+					{% for post in posts %}
+
+					<div class="col-md-6 grid-item">
+						<div class="card">
+							<a href="{% url 'single' post.slug %}">
+							<img class="img-fluid" src="{{ post.thumbnail.url }}" alt="Tree of Codes">
+							</a>
+							<div class="card-block">
+								<h2 class="card-title"><a href="{% url 'single' post.slug %}">{{ post.title }}</a></h2>
+								<h4 class="card-text">{{ post.overview }} </h4>
+								<div class="metafooter">
+									<div class="wrapfooter">
+										<span class="meta-footer-thumb">
+										<img class="author-thumb" src="{{ post.profile_picture.url }}">
+										</span>
+										<span class="author-meta">
+										<span class="post-name"><a target="_blank" href="#">{{ post.author }}</a></span><br/>
+										<span class="post-date">{{ post.timestamp }}</span>
+										</span>
+										<span class="post-read-more"><a href="{% url 'single' post.slug %}" title="Read Story"><i class="fa fa-link"></i></a></span>
+										<div class="clearfix">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end post -->
+			       {% endfor %}
+				</div>
+				<!-- Pagination -->
+				<!-- <div class="bottompagination">
+					<div class="pagination">
+						<span class="">
+							{% if page.has_previous %}								
+								<a href="?page={{ page.previous_page_number }}">previous</a>
+							{% endif %}
+					
+							<span class="">
+								Page {{ page.number }} of {{ page.paginator.num_pages }}.
+							</span>
+					
+							{% if page.has_next %}
+								<a href="?page={{ page.next_page_number }}">next</a>
+
+							{% endif %}
+						</span>
+					</div>
+							 -->
+					
+				</div>
+			</div>
+			</section>
+		</div>
+	</div>
+	
+
+<!-- JavaScript
+================================================== -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+<script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+<script src="{% static 'js/theme.js' %}"></script>
+</body></html>

@@ -1,0 +1,94 @@
+{% load static %}
+{% block content %}	
+
+
+<link href="{% static 'css/theme.css' %} " rel="stylesheet">
+                
+				<!-- Post -->
+					<div class="mainheading">
+						<!-- Post Categories -->
+						<div class="after-post-tags">
+							<ul class="tags">
+								<li>
+								<a href="#">bootstrap</a>
+								</li>
+								<li>
+								<a href="#">tutorial</a>
+								</li>
+							</ul>
+						</div>
+						<!-- End Categories -->
+						<!-- Post Title -->
+					{% for post in posts %}
+
+						<h1 class="posttitle">{{ post.title }}</h1>
+					</div>
+					<!-- Post Featured Image -->
+					<img class="featured-image img-fluid" src="{{ post.thumbnail.url }}" alt="">
+					<!-- End Featured Image -->
+					<!-- Post Content -->
+					<div class="article-post">
+						<p>
+							{{ post.content | safe }}
+							
+
+						</p>						
+						<div class="clearfix">
+						</div>
+					</div>
+					<!-- Post Date -->
+					<p>
+						<small>
+						<span class="post-date"><time class="post-date" datetime="2018-01-12">{{ post.timestamp }}</time></span>
+						</small>
+					</p>
+					{% endfor %}
+					<!-- Prev/Next -->
+					<div class="row PageNavigation mt-4 prevnextlinks">
+						<div class="col-md-6 rightborder pl-0">
+							{% if prevpost %}
+							<td><a class="thepostlink" href="{% url 'single' prevpost.slug %}">« {{ prevpost.slug }}</a></td>
+							{% endif %}
+						   {% if nextpost %}
+							<a class="thepostlink" href="{% url 'single' nextpost.slug %}"> {{ nextpost.slug }} »</a>
+						   {% endif %}
+						</div>
+					</div>
+					<!-- End Prev/Next -->
+					<!-- Author Box -->
+					{% for post in posts %}
+
+					<div class="row post-top-meta">
+						<div class="col-md-2">
+							<img class="author-thumb" src="{{ post.profile_picture.url }}" alt="">
+						</span>
+						</div>
+						<div class="col-md-10">
+							<a target="_blank" class="link-dark" href="#">{{ post.author }}</a><a target="_blank" href="#" class="btn follow">Follow</a>
+							<span class="author-description">A template available for WordPress, HTML, Ghost and Jekyll. You are currently previewing Jekyll template demo.</span><br><br><br>
+						</div>
+					{% endfor %}
+					
+					{% if request.user.is_authenticated %}
+					<form method="POST">
+						<div class="form-control">
+							<h3>Comment Your Suggestion</h3>
+							{% csrf_token %}
+							{{ form }}
+						</div><br>
+						<button  class ="main-button" type="submit">Submit</button>
+					{% else %}
+                	<a href="{% url 'login' %}" class="btn btn-primary">Login to comment!</a>
+					</form>
+					{% endif %}
+					
+					
+				
+				</div>
+				<!-- End Post -->
+			</div>
+			<!-- End Article
+            ================================================== -->
+		</div>
+	</div>
+{% endblock %}

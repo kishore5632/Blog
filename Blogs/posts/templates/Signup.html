@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNUP FORM</title>
+</head>
+<body>
+    <style>
+        #signup {
+            text-align: center;
+            margin-top: 4rem;
+            margin-left: 22rem;
+            margin-right: 22rem;
+            background-color: green;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+       }
+       .main-button {
+            background-color: blue;
+       }      
+    </style>
+
+    <section id="signup">
+    <form method="POST">
+        <div class="form-control">
+            <h3>SIGNUP FORM</h3>
+            {% csrf_token %}
+            {{ form.as_p }}
+        </div>
+        <button class="main-button" type="register">Register</button>
+    </form>
+   </section>
+</body>
+</html>
