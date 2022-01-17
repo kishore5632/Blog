@@ -1,1 +1,1 @@
-BLOG USING DJANGO STACK
+Blog using Django and  Django Restframework
